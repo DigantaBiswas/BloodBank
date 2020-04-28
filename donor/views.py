@@ -1,5 +1,6 @@
 from django.http import JsonResponse
-from django.shortcuts import render, HttpResponseRedirect,redirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
+from django.http import HttpResponse
 from .models import BloodDonor
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
@@ -7,7 +8,9 @@ from datetime import datetime
 from django.contrib.auth import authenticate,logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
-
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+from .utils.fb_notifier import *
 
 # Create your views here.
 
@@ -194,3 +197,14 @@ def adminApproveDonor(request, id):
         message = 'donor approve problem!'
         messages.warning(request, message)
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class FbNotifier(View):
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def post(self,request):
+        print("sdfjkasjfslakjflsajflsjflsjf")
+        fb_notifier(request)
+        return HttpResponse("Notificaiton sent")

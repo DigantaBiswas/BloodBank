@@ -90,7 +90,7 @@
                       <td>{{donor.phone}}</td>
                       <td>{{donor.batch}}</td>
                       <td>{{donor.address}}</td>
-                      <td><button onclick="send_fb_txt({{donor.fb_url.id}})" id="{{donor.fb_url.id}}">Send</button></td>
+                      <td><button onclick=" send_fb_txt({{donor.id}}) ">Send</button></td>
                   </tr>    
                 {% endfor %}
         </table>
@@ -137,10 +137,10 @@
                          <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">FB link </label>
+                                    <label class="col-sm-3 col-form-label">FB Username </label>
                                     <div class="col-sm-9">
                                         <input type="text" name="fblink" required="required"
-                                               class="form-control " placeholder="www.facebook.com/aveebkc (not shareable)"/>
+                                               class="form-control " placeholder="username of facebook">
 
                                     </div>
                                 </div>
@@ -312,12 +312,13 @@
   <script>
       function  send_fb_txt(id){
             console.log(id)
-             $.ajax({
-            url: '/ajax/validate_username/',
+          $.ajax({
+            url: '{%url 'fb_text_notifier'%}',
             data: {
-              'username': username
+              'donor_id': id
             },
             dataType: 'json',
+              method: 'POST',
             success: function (data) {
               if (data.is_taken) {
                 alert("A user with this username already exists.");

@@ -10,4 +10,4 @@ class BloodDonor(models.Model):
     address = models.CharField(max_length=100, null=True)
     status = models.BooleanField()
     created_date = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
-    fb_url = models.URLField(max_length=300, null=True)
+    fb_url = models.CharField(max_length=50, null=True)

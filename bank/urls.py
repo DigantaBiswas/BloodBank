@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from donor import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
@@ -29,4 +30,6 @@ urlpatterns = [
     path('adminDeleteDonor/<int:id>', views.adminDeleteDonor, name='adminDeleteDonor'),
     path('adminApproveDonor/<int:id>', views.adminApproveDonor, name='adminApproveDonor'),
     path('adminAddDonor', views.adminAddDonor, name='adminAddDonor'),
+    path('text-notifier', views.FbNotifier.as_view(), name='fb_text_notifier'),
+
 ]
