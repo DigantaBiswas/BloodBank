@@ -29,6 +29,7 @@ def addDonor(request):
         phone = request.POST.get('phone')
         batch = request.POST.get('batch')
         address = request.POST.get('address')
+        fblink = request.POST.get('fblink')
 
         if BloodDonor.objects.filter(name = name, batch= batch).exists():
             message = 'Donor already exists!'
@@ -42,7 +43,8 @@ def addDonor(request):
             batch = batch,
             address = address,
             status = False,
-            created_date = datetime.now()
+            created_date = datetime.now(),
+            fb_url = fblink,
             )
             bloodDonor.save()
             message = 'Donor uploaded, need admin approval'
